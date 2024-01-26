@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog
 from screeninfo import get_monitors
 import pymsgbox
 
@@ -24,11 +25,21 @@ pymsgbox.rootWindowPosition = '+' + str(int(primary_mon_width/3)) + '+' + str(in
 # ---------------- MAIN Window Functionality ----------------------
 root = Tk() # Create Root (MAIN) Window
 
+# Naming and Sizing
 root.title("Smash Ultimate Mod Manager")
-root.size()
-root.minsize(200, 200)
-root.maxsize(500, 500)
-root.geometry("500x500+")
+root.minsize(int(primary_mon_width/3), int(primary_mon_height/2)) # TODO: MAKE CODE MORE CONCISE
+root.maxsize(int(primary_mon_width/3), int(primary_mon_height/2))
+root.geometry(str(int(primary_mon_width/3)) + 'x' + str(int(primary_mon_height/2)) + '+' + str(int(primary_mon_width/3)) + '+' + str(int(primary_mon_height/6)))
+
+def BrowseFiles(): # https://www.geeksforgeeks.org/file-explorer-in-python-using-tkinter/
+    filename = filedialog.askdirectory(initialdir='/', title='Select a Folder')
+
+# Button Layout
+button_file_browse = Button(root, text='Browse Files', command=BrowseFiles)
+
+# Grid Layout
+button_file_browse.grid(column=1, row=1)
+
 root.mainloop()
 
 
