@@ -26,23 +26,22 @@ pymsgbox.rootWindowPosition = '+' + str(int(primary_mon_width/10)) + '+' + str(i
 # -------------------- MAIN Window Properties ----------------------
 root = Tk() # Create Root (MAIN) Window
 
-# GLOBAL VARIABLES
-global filename
-filename = 'N/A'
-
 # Naming and Sizing
 root.title("Smash Ultimate Mod Manager")
 root.resizable(0,0)
 root.geometry(str(int(primary_mon_width/3)) + 'x' + str(int(primary_mon_height/2)) + '+' + str(int(primary_mon_width/3)) + '+' + str(int(primary_mon_height/6)))
 
 # -------------------- Functions for Clickable Objects ----------------------
-def BrowseFiles(): # https://www.geeksforgeeks.org/file-explorer-in-python-using-tkinter/
-    filename1 = filedialog.askdirectory(initialdir='/', title='Select a Folder') # https://pythonassets.com/posts/browse-file-or-folder-in-tk-tkinter/
-    filename = filename1
-    print('\nBrowse File - Filename: ' + filename)
+def ListFiles(filename): # https://www.javatpoint.com/file-explorer-using-tkinter-in-python
+    print('filename = ' + filename)
+    os.chdir(filename[0] + ':')
+    file_list = os.listdir(filename)
+    print(file_list)
 
-def ListFiles(): # https://www.javatpoint.com/file-explorer-using-tkinter-in-python
-    file_list = os.listdir(os.path.abspath(filename))
+def BrowseFiles(): # https://www.geeksforgeeks.org/file-explorer-in-python-using-tkinter/
+    filename = filedialog.askdirectory(initialdir='/', title='Select a Folder') # https://pythonassets.com/posts/browse-file-or-folder-in-tk-tkinter/
+    print('\nBrowse File - Filename: ' + filename)
+    ListFiles(filename)
 
 # -------------------- Menu Layout ----------------------
 # Frame Layout
@@ -51,11 +50,11 @@ root.columnconfigure(0, weight=5)
 root.columnconfigure(1, weight=1)
 root.rowconfigure(0, weight=1)
 
-menu_left = Frame(root, bg='red') # Left Menu Frame
+menu_left = Frame(root, bg='blue') # Left Menu Frame
 menu_left.grid(row=0, column=0, sticky='nsew')
 
-menu_right = Frame(root, bg='gold') # Right Menu Frame
-menu_right.grid(row=0, column=1, sticky='nsew')
+menu_right = Frame(root) # Right Menu Frame
+menu_right.grid(row=0, column=1, padx=20, sticky='nsew')
 
 # Right Menu Layout
 menu_right.rowconfigure(0, weight=1) # https://www.youtube.com/watch?v=i577cFu8eBI (skip to end of video)
@@ -66,7 +65,7 @@ menu_right.rowconfigure(4, weight=1) # Row 3: Used for STAGES Button
 menu_right.rowconfigure(5, weight=5)
 menu_right.columnconfigure(0, weight=1)
 
-label_file_browse = Label(menu_right, text='Please select your Smash\nUltimate Mods folder...', font=('verdana', '10'))
+label_file_browse = Label(menu_right, text='Please select your Smash\nUltimate Mods folder...', font=('verdana', '8'), width=18, padx=20)
 label_file_browse.grid(row=0, column=0)
 
 button_file_browse = Button(menu_right, text='Browse Files', font='verdana', command=BrowseFiles)
@@ -79,7 +78,16 @@ button_stages = Button(menu_right, text='Stages', font='verdana', width=13, heig
 button_stages.grid(row=3, column=0)
 
 # Left Menu Layout
+listbox_files = Listbox(menu_left, width=41, activestyle='dotbox', font=('verdana', '12'))
+listbox_files.pack(side=LEFT, fill=BOTH)
 
+scrollbar_files = Scrollbar(menu_left)
+scrollbar_files.pack(side=RIGHT, fill=BOTH)
+listbox_files.config(yscrollcommand=scrollbar_files.set)
+scrollbar_files.config(command=listbox_files.yview)
+
+for values in range(100):
+    listbox_files.insert(END, values)
 
 root.mainloop()
 
