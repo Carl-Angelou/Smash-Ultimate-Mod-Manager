@@ -32,16 +32,24 @@ root.resizable(0,0)
 root.geometry(str(int(primary_mon_width/3)) + 'x' + str(int(primary_mon_height/2)) + '+' + str(int(primary_mon_width/3)) + '+' + str(int(primary_mon_height/6)))
 
 # -------------------- Functions for Clickable Objects ----------------------
-def ListFiles(filename): # https://www.javatpoint.com/file-explorer-using-tkinter-in-python
-    print('filename = ' + filename)
-    os.chdir(filename[0] + ':')
-    file_list = os.listdir(filename)
-    print(file_list)
-
 def BrowseFiles(): # https://www.geeksforgeeks.org/file-explorer-in-python-using-tkinter/
     filename = filedialog.askdirectory(initialdir='/', title='Select a Folder') # https://pythonassets.com/posts/browse-file-or-folder-in-tk-tkinter/
     print('\nBrowse File - Filename: ' + filename)
     ListFiles(filename)
+
+def ListFiles(filename): # https://www.javatpoint.com/file-explorer-using-tkinter-in-python
+    # print('filename = ' + filename)
+    os.chdir(filename[0] + ':')
+    file_list = os.listdir(filename)
+    print(file_list) # Print out all files from directory
+
+    file_list = sorted(file_list) # Sorts files alphabetically
+    
+    if listbox_files.size() > 0:
+        listbox_files.delete(0, END)
+
+    for values in file_list:
+        listbox_files.insert(END, values)
 
 # -------------------- Menu Layout ----------------------
 # Frame Layout
@@ -86,8 +94,9 @@ scrollbar_files.pack(side=RIGHT, fill=BOTH)
 listbox_files.config(yscrollcommand=scrollbar_files.set)
 scrollbar_files.config(command=listbox_files.yview)
 
-for values in range(100):
-    listbox_files.insert(END, values)
+# TESTING LISTBOX AND SCROLLBAR WITH 100 VALUES
+# for values in range(100): 
+#     listbox_files.insert(END, values)
 
 root.mainloop()
 
