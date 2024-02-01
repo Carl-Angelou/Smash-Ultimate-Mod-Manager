@@ -21,7 +21,7 @@ print('primary_mon_height: ' + str(primary_mon_height))
 print('primary_mon_x: ' + str(primary_mon_x))
 
 # Changes default message box location to half height and width of primary display
-pymsgbox.rootWindowPosition = '+' + str(int(primary_mon_width/10)) + '+' + str(int(primary_mon_height/3))
+pymsgbox.rootWindowPosition = '+' + str(int(primary_mon_width/3)) + '+' + str(int(primary_mon_height/3))
 
 # -------------------- MAIN Window Properties ----------------------
 root = Tk() # Create Root (MAIN) Window
@@ -54,6 +54,29 @@ def ListFiles(filename): # https://www.javatpoint.com/file-explorer-using-tkinte
 
     for values in file_list:
         listbox_files.insert(END, values)
+
+def SkinAdd():
+    return 0
+
+def SkinChange():
+    print()
+
+def SkinChangeWindow(event):
+    # PRINTING EVENT
+    print()
+    print(event)
+
+    sel_num = listbox_files.curselection() # https://www.geeksforgeeks.org/binding-function-with-double-click-with-tkinter-listbox/
+    sel_text = listbox_files.get(sel_num)
+
+    # ADDING WINDOW
+    window = Toplevel(root)
+    window.title(sel_text)
+    window.resizable(0,0)
+    window.geometry('400x200' + '+' + str(int(primary_mon_width/9)) + '+' + str(int(primary_mon_height/3)))
+
+def SkinDelete():
+    return 0
 
 # -------------------- Menu Layout ----------------------
 # Frame Layout
@@ -118,6 +141,8 @@ scrollbar_files.config(command=listbox_files.yview)
 # TESTING LISTBOX AND SCROLLBAR WITH 100 VALUES
 # for values in range(100): 
 #     listbox_files.insert(END, values)
+
+listbox_files.bind('<Double-Button-1>', SkinChangeWindow) # https://stackoverflow.com/questions/76535198/double-clicking-on-an-item-in-a-listbox-in-tkinter-and-having-that-item-show-in
 
 root.mainloop()
 
