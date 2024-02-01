@@ -33,8 +33,12 @@ root.geometry(str(int(primary_mon_width/3)) + 'x' + str(int(primary_mon_height/2
 
 # -------------------- Functions for Clickable Objects ----------------------
 def BrowseFiles(): # https://www.geeksforgeeks.org/file-explorer-in-python-using-tkinter/
-    filename = filedialog.askdirectory(initialdir='/', title='Select a Folder') # https://pythonassets.com/posts/browse-file-or-folder-in-tk-tkinter/
-    print('\nBrowse File - Filename: ' + filename)
+    # Browse to files (UNCOMMENT IF YOU WANT TO CHOOSE DIRECTORY)
+    #filename = filedialog.askdirectory(initialdir='/', title='Select a Folder') # https://pythonassets.com/posts/browse-file-or-folder-in-tk-tkinter/
+    #print('\nBrowse File - Filename: ' + filename)
+    
+    # Just go to directory immediately (COMMENT THIS SECTION IF YOU DONT WANT TO CHOOSE DIRECTORY)
+    filename = 'E:/ultimate/mods'
     ListFiles(filename)
 
 def ListFiles(filename): # https://www.javatpoint.com/file-explorer-using-tkinter-in-python
@@ -43,7 +47,7 @@ def ListFiles(filename): # https://www.javatpoint.com/file-explorer-using-tkinte
     file_list = os.listdir(filename)
     print(file_list) # Print out all files from directory
 
-    file_list = sorted(file_list) # Sorts files alphabetically
+    file_list = sorted(file_list) # Sorts files alphabetically (https://www.tutorialspoint.com/How-do-you-get-a-directory-listing-sorted-by-their-name-in-Python)
     
     if listbox_files.size() > 0:
         listbox_files.delete(0, END)
