@@ -67,10 +67,15 @@ menu_right.grid(row=0, column=1, padx=20, sticky='nsew')
 # Right Menu Layout
 menu_right.rowconfigure(0, weight=1) # https://www.youtube.com/watch?v=i577cFu8eBI (skip to end of video)
 menu_right.rowconfigure(1, weight=1) # Row 1: Used for BROWSE FILES Button
-menu_right.rowconfigure(2, weight=10)
-menu_right.rowconfigure(3, weight=1) # Row 2: Used for SKINS Button
-menu_right.rowconfigure(4, weight=1) # Row 3: Used for STAGES Button
-menu_right.rowconfigure(5, weight=5)
+menu_right.rowconfigure(2, weight=2)
+menu_right.rowconfigure(3, weight=1) # Row 3: Used for ADD SKINS Button
+menu_right.rowconfigure(4, weight=1) # Row 4: Used for CHANGE SKINS Button
+menu_right.rowconfigure(5, weight=1) # Row 5: Used for DELETE SKINS Button
+menu_right.rowconfigure(6, weight=2)
+menu_right.rowconfigure(7, weight=1) # Row 7: Used for ADD STAGES Button
+menu_right.rowconfigure(8, weight=1) # Row 8: Used for CHANGE STAGES Button
+menu_right.rowconfigure(9, weight=1) # Row 9: Used for DELETE STAGES Button
+menu_right.rowconfigure(10, weight=5)
 menu_right.columnconfigure(0, weight=1)
 
 label_file_browse = Label(menu_right, text='Please select your Smash\nUltimate Mods folder...', font=('verdana', '8'), width=18, padx=20)
@@ -79,11 +84,23 @@ label_file_browse.grid(row=0, column=0)
 button_file_browse = Button(menu_right, text='Browse Files', font='verdana', command=BrowseFiles)
 button_file_browse.grid(row=1, column=0)
 
-button_skins = Button(menu_right, text='Skins', font='verdana', width=13, height=5, command=BrowseFiles)
-button_skins.grid(row=2, column=0)
+button_skins = Button(menu_right, text='Add Skins', font='verdana', width=13, height=2, command=BrowseFiles)
+button_skins.grid(row=3, column=0)
 
-button_stages = Button(menu_right, text='Stages', font='verdana', width=13, height=5, command=BrowseFiles)
-button_stages.grid(row=3, column=0)
+button_skins = Button(menu_right, text='Change Skins', font='verdana', width=13, height=2, command=BrowseFiles)
+button_skins.grid(row=4, column=0)
+
+button_skins = Button(menu_right, text='Delete Skins', font='verdana', width=13, height=2, command=BrowseFiles)
+button_skins.grid(row=5, column=0)
+
+button_stages = Button(menu_right, text='Add Stages', font='verdana', width=13, height=2, command=BrowseFiles)
+button_stages.grid(row=7, column=0)
+
+button_stages = Button(menu_right, text='Change Stages', font='verdana', width=13, height=2, command=BrowseFiles)
+button_stages.grid(row=8, column=0)
+
+button_stages = Button(menu_right, text='Delete Stages', font='verdana', width=13, height=2, command=BrowseFiles)
+button_stages.grid(row=9, column=0)
 
 # Left Menu Layout
 listbox_files = Listbox(menu_left, width=41, activestyle='dotbox', font=('verdana', '12'))
