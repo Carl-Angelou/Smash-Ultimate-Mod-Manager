@@ -62,6 +62,13 @@ def SkinChange():
     print()
 
 def SkinChangeWindow(event):
+    def Ret(event):  # MAKE IT DELETE THE ENTER THAT'S ADDED TO TEXTBOX
+        print('RETURN PRESSED')
+
+        if len(text_skin_name_change.get('1.0', 'end-1c')) > 0: # https://www.tutorialspoint.com/how-to-get-the-current-length-of-the-text-in-a-tkinter-text-widget
+            text_skin_name_change.delete('1.0', END) # https://stackoverflow.com/questions/47502212/cannot-clear-output-text-tkinter-tclerror-bad-text-index-0
+            # TODO: ACTUALLY DELETE ONLY THE LAST CHARACTER
+
     # PRINTING EVENT
     print()
     print(event)
@@ -74,6 +81,22 @@ def SkinChangeWindow(event):
     window.title(sel_text)
     window.resizable(0,0)
     window.geometry('400x200' + '+' + str(int(primary_mon_width/9)) + '+' + str(int(primary_mon_height/3)))
+    
+    window.columnconfigure(0, weight=1)
+    window.columnconfigure(1, weight=1)
+    window.columnconfigure(2, weight=1)
+    window.rowconfigure(0, weight=1)
+    window.rowconfigure(1, weight=1)
+    window.rowconfigure(2, weight=1)
+
+    text_skin_name_change = Text(window, font=('verdana', '12'))
+    text_skin_name_change.tag_configure('center', justify='center') # Adds center justify as a property (actually added in line 91)
+    text_skin_name_change.grid(row=0, column=1)
+    text_skin_name_change.configure(state=NORMAL)
+    window.bind('<Return>', Ret)
+
+    text_skin_name_change.insert(INSERT, sel_text) # https://www.geeksforgeeks.org/how-to-set-text-of-tkinter-text-widget-with-a-button/
+    text_skin_name_change.tag_add('center', 1.0, 'end') # https://www.tutorialspoint.com/how-to-set-justification-on-tkinter-text-box#:~:text=We%20can%20configure%20the%20Text,of%20
 
 def SkinDelete():
     return 0
